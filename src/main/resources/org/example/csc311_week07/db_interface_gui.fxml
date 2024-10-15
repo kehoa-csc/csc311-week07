@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.csc311_week07.PrimaryController">
+   <children>
+      <BorderPane layoutX="-2.0" layoutY="-1.0" prefHeight="535.0" prefWidth="807.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                        <MenuItem mnemonicParsing="false" text="Shortcuts" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <right>
+            <TableView fx:id="tv" prefHeight="501.0" prefWidth="507.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="tv_id" editable="false" prefWidth="32.0" text="ID" />
+                <TableColumn fx:id="tv_name" editable="false" prefWidth="87.0" text="Name" />
+                  <TableColumn fx:id="tv_email" editable="false" prefWidth="83.0" text="Email" />
+                  <TableColumn fx:id="tv_phone" editable="false" prefWidth="107.0" text="Phone" />
+                  <TableColumn fx:id="tv_address" editable="false" minWidth="0.0" prefWidth="90.0" text="Address" />
+                  <TableColumn fx:id="tv_address1" editable="false" prefWidth="107.0" text="Password" />
+              </columns>
+            </TableView>
+         </right>
+         <left>
+            <VBox prefHeight="264.0" prefWidth="116.0" styleClass="left_pane" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="103.0" fitWidth="85.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="profile_pic">
+                           <image>
+                              <Image url="@profile.png" />
+                           </image></ImageView>
+                     </children>
+                  </AnchorPane>
+               </children></VBox>
+         </left>
+         <center>
+            <VBox prefHeight="476.0" prefWidth="233.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField promptText="Name">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField promptText="Email">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField promptText="Phone">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField promptText="Address">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField promptText="Password">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button minWidth="-Infinity" mnemonicParsing="false" styleClass="nav_btn" text="Connect to DB">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin></Button>
+                  <Button minWidth="-Infinity" mnemonicParsing="false" styleClass="nav_btn" text="Display all users">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                <Button mnemonicParsing="false" styleClass="nav_btn" text="Insert User">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin></Button>
+                  <Button mnemonicParsing="false" styleClass="nav_btn" text="Query by Name">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin></Button>
+                  <Button mnemonicParsing="false" styleClass="nav_btn" text="Edit User">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin></Button>
+                  <Button minWidth="-Infinity" mnemonicParsing="false" styleClass="nav_btn" text="Delete User">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <HBox prefHeight="32.0" prefWidth="693.0" styleClass="bottom_pane" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>
