@@ -43,7 +43,9 @@ public class PrimaryController {
 
     @FXML
     TextField nameField;
-    boolean gettingID = false;
+    boolean deleting = false;
+    int editingPhase = 0;
+    int editingID = -1;
     @FXML
     TextField emailField;
     @FXML
@@ -59,6 +61,7 @@ public class PrimaryController {
 
     @FXML
     private void connectToDB() {
+        editingPhase = 0;
         message.setText("Attempting to connect to database...");
         boolean result = cdbop.connectToDatabase();
         if (result) {
@@ -70,6 +73,7 @@ public class PrimaryController {
 
     @FXML
     private void displayAllUsers() {
+        editingPhase = 0;
         ObservableList<User> users = cdbop.listAllUsers(true);
 
         tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -83,10 +87,7 @@ public class PrimaryController {
 
     @FXML
     private void insertUser() {
-        //Cancel deletion
-        nameField.setPromptText("Name");
-        gettingID = false;
-
+        editingPhase = 0;
         message.setText("Attempting to insert user...");
         if (nameField.getText().isEmpty() || emailField.getText().isEmpty() || phoneField.getText().isEmpty() || addressField.getText().isEmpty() || passwordField.getText().isEmpty()) {
             message.setText("Please provide info for all fields.");
@@ -105,10 +106,7 @@ public class PrimaryController {
 
     @FXML
     private void queryUser() {
-        //Cancel delete user
-        nameField.setPromptText("Name");
-        gettingID = false;
-
+        editingPhase = 0;
         message.setText("Looking for users by the name of \"" + nameField.getText() + "\"...");
         if (nameField.getText().isEmpty()) {
             message.setText("Please enter name to query by.");
@@ -124,24 +122,102 @@ public class PrimaryController {
             tv.setItems(users);
         }
     }
+    
+    @FXML private void editUser() {
+        switch(editingPhase) {
+            case 0:
+                displayAllUsers();
+                toggleOthers(true);
+                deleteButton.setDisable(true);
+
+                message.setText("Type in ID of user to edit, then press edit again. Type c to cancel.");
+                nameField.setText("");
+                nameField.requestFocus();
+                nameField.setPromptText("ID");
+                editingPhase = 1;
+            break;
+            case 1:
+                if (nameField.getText().isEmpty()) {
+                    message.setText("ID field empty. Please type in ID and press delete again.");
+                } else {
+                    try {
+                        if (nameField.getText().equals("c")) {
+                            deleting = false;
+                            nameField.setPromptText("Name");
+                            toggleOthers(false);
+                            deleteButton.setDisable(false);
+                            message.setText("Cancelled editing of user.");
+                        } else {
+                            editingID = Integer.parseInt(nameField.getText());
+                            if (!cdbop.doesUserExist(editingID)) {
+                                message.setText("User with ID " + editingID + " does not exist.");
+                                return;
+                            }
+                            message.setText("Editing ID " + editingID + ". Provide new information and press edit again.");
+                            emailField.setDisable(false);
+                            phoneField.setDisable(false);
+                            addressField.setDisable(false);
+                            passwordField.setDisable(false);
+
+                            nameField.setText("");
+                            nameField.requestFocus();
+                            nameField.setPromptText("Name");
+                            emailField.setText("");
+                            phoneField.setText("");
+                            addressField.setText("");
+                            passwordField.setText("");
+                            editingPhase = 2;
+                        }
+                    } catch (NumberFormatException e) {
+                        message.setText("Provided ID is not a number. Please type in an ID and press edit again, or c to cancel.");
+                    }
+                }
+
+
+            break;
+            case 2:
+                if (nameField.getText().isEmpty() || emailField.getText().isEmpty() || phoneField.getText().isEmpty() || addressField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+                    message.setText("Editing " + editingID + ": Please provide info for all fields.");
+                    return;
+                } else {
+                    cdbop.editUser(editingID,nameField.getText(),emailField.getText(),phoneField.getText(),addressField.getText(),passwordField.getText());
+                    message.setText("User successfully edited.");
+                    displayAllUsers();
+                    editingPhase = 0;
+                    editingID = -1;
+                    toggleOthers(false);
+                    deleteButton.setDisable(false);
+                }
+            break;
+            default:
+                editingPhase = 0;
+        }
+    }
 
     @FXML
     private void deleteUser() {
-        if (!gettingID) { //first press
+        editingPhase = 0;
+        if (!deleting) { //first press
+            toggleOthers(true);
+            editButton.setDisable(true);
+
             message.setText("Type in ID of user to delete, then press delete again. Type c to cancel.");
             nameField.setText("");
             nameField.requestFocus();
             nameField.setPromptText("ID");
-            gettingID = true;
+            deleting = true;
         } else { //second press
             if (nameField.getText().isEmpty()) {
                 message.setText("ID field empty. Please type in ID and press delete again.");
             } else {
                 try {
                     if (nameField.getText().equals("c")) {
-                        gettingID = false;
+                        deleting = false;
                         nameField.setPromptText("Name");
                         message.setText("Cancelled deletion of user.");
+
+                        toggleOthers(false);
+                        editButton.setDisable(false);
                     } else {
                         int id = Integer.parseInt(nameField.getText());
                         if (!cdbop.doesUserExist(id)) {
@@ -150,14 +226,28 @@ public class PrimaryController {
                         }
                         cdbop.deleteUser(id);
                         message.setText("User " + id + " successfully deleted.");
+
+                        toggleOthers(false);
+                        editButton.setDisable(false);
                     }
                 }
                 catch (NumberFormatException e) {
-                    message.setText("ID is not a number. Please type in ID and press delete again.");
+                    message.setText("Provided ID is not a number. Please type in an ID and press delete again, or c to cancel.");
                 }
             }
         }
         displayAllUsers();
+    }
+
+    private void toggleOthers(boolean disabled) {
+        connectButton.setDisable(disabled);
+        displayButton.setDisable(disabled);
+        insertButton.setDisable(disabled);
+        queryButton.setDisable(disabled);
+        emailField.setDisable(disabled);
+        phoneField.setDisable(disabled);
+        addressField.setDisable(disabled);
+        passwordField.setDisable(disabled);
     }
 
     @FXML

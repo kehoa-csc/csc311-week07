@@ -39,6 +39,7 @@ public class App extends Application {
         cdbop = new ConnDbOps();
         Scanner scan = new Scanner(System.in);
         boolean exists;
+        boolean launchedGui = false;
         int editID;
         int deleteID;
         char input;
@@ -59,7 +60,13 @@ public class App extends Application {
 
             switch (input) {
                 case 'g':
-                     launch(args); //GUI
+                    //GUI
+                    if (!launchedGui) {
+                        launch(args);
+                        launchedGui = true;
+                    } else {
+                         System.out.println("You may only start GUI once per session.");
+                    }
                     break;
 
                 case 'c':
