@@ -2,9 +2,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -23,15 +25,26 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
+                        <MenuItem fx:id="connectMenu" mnemonicParsing="false" onAction="#connectToDB" text="Connect to DB" />
+                        <MenuItem fx:id="displayMenu" mnemonicParsing="false" onAction="#displayAllUsers" text="Display all users" />
+                        <MenuItem fx:id="queryMenu" mnemonicParsing="false" onAction="#queryUser" text="Query by Name" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Close" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                        <MenuItem mnemonicParsing="false" onAction="#shortcuts" text="Toggle Shortcuts" />
-                        <MenuItem mnemonicParsing="false" text="Toggle Theme" />
-                  </items>
+                     <items>
+                      <MenuItem fx:id="insertMenu" mnemonicParsing="false" onAction="#insertUser" text="Insert User " />
+                        <MenuItem fx:id="editMenu" mnemonicParsing="false" onAction="#editUser" text="Edit User" />
+                        <MenuItem fx:id="deleteMenu" mnemonicParsing="false" onAction="#deleteUser" text="Delete User" />
+                     </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Visual">
+                    <items>
+                        <CheckMenuItem mnemonicParsing="false" text="Dark Mode" />
+                        <CheckMenuItem mnemonicParsing="false" onAction="#shortcuts" text="Shortcuts" />
+                    </items>
+                  </Menu>
                   <Menu mnemonicParsing="false" text="Help">
                      <items>
                         <MenuItem mnemonicParsing="false" text="About" />

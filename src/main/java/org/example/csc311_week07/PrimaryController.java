@@ -27,6 +27,19 @@ public class PrimaryController {
     Button deleteButton;
     boolean showShortcuts = false;
     @FXML
+    MenuItem connectMenu;
+    @FXML
+    MenuItem displayMenu;
+    @FXML
+    MenuItem insertMenu;
+    @FXML
+    MenuItem queryMenu;
+    @FXML
+    MenuItem editMenu;
+    @FXML
+    MenuItem deleteMenu;
+
+    @FXML
     TableView<User> tv;
     @FXML
     TableColumn<User, Integer> tv_id;
@@ -46,6 +59,7 @@ public class PrimaryController {
     boolean deleting = false;
     int editingPhase = 0;
     int editingID = -1;
+
     @FXML
     TextField emailField;
     @FXML
@@ -107,7 +121,6 @@ public class PrimaryController {
     @FXML
     private void queryUser() {
         editingPhase = 0;
-        message.setText("Looking for users by the name of \"" + nameField.getText() + "\"...");
         if (nameField.getText().isEmpty()) {
             message.setText("Please enter name to query by.");
         } else {
@@ -120,6 +133,8 @@ public class PrimaryController {
             tv_address.setCellValueFactory(new PropertyValueFactory<>("address"));
             tv_password.setCellValueFactory(new PropertyValueFactory<>("password"));
             tv.setItems(users);
+
+            message.setText("Here are users by the name of \"" + nameField.getText() + "\"...");
         }
     }
     
@@ -129,6 +144,7 @@ public class PrimaryController {
                 displayAllUsers();
                 toggleOthers(true);
                 deleteButton.setDisable(true);
+                deleteMenu.setDisable(true);
 
                 message.setText("Type in ID of user to edit, then press edit again. Type c to cancel.");
                 nameField.setText("");
@@ -138,7 +154,7 @@ public class PrimaryController {
             break;
             case 1:
                 if (nameField.getText().isEmpty()) {
-                    message.setText("ID field empty. Please type in ID and press delete again.");
+                    message.setText("ID field empty. Please type in ID and press edit again.");
                 } else {
                     try {
                         if (nameField.getText().equals("c")) {
@@ -146,7 +162,9 @@ public class PrimaryController {
                             nameField.setPromptText("Name");
                             toggleOthers(false);
                             deleteButton.setDisable(false);
+                            deleteMenu.setDisable(false);
                             message.setText("Cancelled editing of user.");
+                            editingPhase = 0;
                         } else {
                             editingID = Integer.parseInt(nameField.getText());
                             if (!cdbop.doesUserExist(editingID)) {
@@ -172,8 +190,6 @@ public class PrimaryController {
                         message.setText("Provided ID is not a number. Please type in an ID and press edit again, or c to cancel.");
                     }
                 }
-
-
             break;
             case 2:
                 if (nameField.getText().isEmpty() || emailField.getText().isEmpty() || phoneField.getText().isEmpty() || addressField.getText().isEmpty() || passwordField.getText().isEmpty()) {
@@ -187,6 +203,7 @@ public class PrimaryController {
                     editingID = -1;
                     toggleOthers(false);
                     deleteButton.setDisable(false);
+                    deleteMenu.setDisable(false);
                 }
             break;
             default:
@@ -198,8 +215,10 @@ public class PrimaryController {
     private void deleteUser() {
         editingPhase = 0;
         if (!deleting) { //first press
+            displayAllUsers();
             toggleOthers(true);
             editButton.setDisable(true);
+            editMenu.setDisable(true);
 
             message.setText("Type in ID of user to delete, then press delete again. Type c to cancel.");
             nameField.setText("");
@@ -218,6 +237,7 @@ public class PrimaryController {
 
                         toggleOthers(false);
                         editButton.setDisable(false);
+                        editMenu.setDisable(false);
                     } else {
                         int id = Integer.parseInt(nameField.getText());
                         if (!cdbop.doesUserExist(id)) {
@@ -229,6 +249,7 @@ public class PrimaryController {
 
                         toggleOthers(false);
                         editButton.setDisable(false);
+                        editMenu.setDisable(false);
                     }
                 }
                 catch (NumberFormatException e) {
@@ -248,6 +269,10 @@ public class PrimaryController {
         phoneField.setDisable(disabled);
         addressField.setDisable(disabled);
         passwordField.setDisable(disabled);
+        connectMenu.setDisable(disabled);
+        displayMenu.setDisable(disabled);
+        insertMenu.setDisable(disabled);
+        queryMenu.setDisable(disabled);
     }
 
     @FXML
