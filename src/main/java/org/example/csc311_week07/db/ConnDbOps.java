@@ -4,6 +4,10 @@
  */
 package org.example.csc311_week07.db;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.example.csc311_week07.User;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -68,8 +72,8 @@ public class ConnDbOps {
         return hasRegistredUsers;
     }
 
-    public void queryUserByName(String name) {
-
+    public ObservableList<User> queryUserByName(String name, boolean gui) {
+        ObservableList<User> users = FXCollections.observableArrayList();
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -84,18 +88,25 @@ public class ConnDbOps {
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
                 String address = resultSet.getString("address");
-                System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email + ", Phone: " + phone + ", Address: " + address);
+                String password = resultSet.getString("password");
+                if (gui) {
+                    users.add(new User(id,name,email,phone,address,password));
+                } else {
+                    System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email + ", Phone: " + phone + ", Address: " + address + ", Password:" + password);
+                }
             }
 
             preparedStatement.close();
             conn.close();
+            return users;
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
-    public void listAllUsers() {
-
+    public ObservableList<User> listAllUsers(boolean gui) {
+        ObservableList<User> users = FXCollections.observableArrayList();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             String sql = "SELECT * FROM users ";
@@ -109,17 +120,25 @@ public class ConnDbOps {
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
                 String address = resultSet.getString("address");
-                System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email + ", Phone: " + phone + ", Address: " + address);
+                String password = resultSet.getString("password");
+                if (gui) {
+                    users.add(new User(id,name,email,phone,address,password));
+                } else {
+                    System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email + ", Phone: " + phone + ", Address: " + address + ", Password:" + password);
+                }
             }
 
             preparedStatement.close();
             conn.close();
+
+            return users;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public void insertUser(String name, String email, String phone, String address, String password) {
+    public boolean insertUser(String name, String email, String phone, String address, String password) {
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -139,8 +158,10 @@ public class ConnDbOps {
 
             preparedStatement.close();
             conn.close();
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Failed to insert user. Do you have duplicate values?");
+            return false;
         }
     }
 

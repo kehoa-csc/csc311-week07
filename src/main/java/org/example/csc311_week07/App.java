@@ -16,7 +16,7 @@ import org.example.csc311_week07.db.ConnDbOps;
 public class App extends Application {
 
     private static Scene scene;
-    private static ConnDbOps cdbop;
+    public static ConnDbOps cdbop;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -66,7 +66,7 @@ public class App extends Application {
                     cdbop.connectToDatabase(); //Your existing method
                     break;
                 case 'a':
-                    cdbop.listAllUsers(); //all users in DB
+                    cdbop.listAllUsers(false); //all users in DB
                     break;
 
                 case 'i':
@@ -85,7 +85,7 @@ public class App extends Application {
                 case 'q':
                     System.out.print("Enter the name to query: ");
                     String queryName = scan.next();
-                    cdbop.queryUserByName(queryName); //Your queryUserByName method
+                    cdbop.queryUserByName(queryName,false); //Your queryUserByName method
                     break;
 
                 case 't':
