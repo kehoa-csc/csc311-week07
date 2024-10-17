@@ -15,12 +15,12 @@ import org.example.csc311_week07.db.ConnDbOps;
  */
 public class App extends Application {
 
-    private static Scene scene;
+    public static Scene scene;
     public static ConnDbOps cdbop;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("db_interface_gui"), 807, 535);
+        scene = new Scene(loadFXML("db_interface_gui"), 820, 535);
         stage.setScene(scene);
         stage.show();
     }

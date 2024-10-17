@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.csc311_week07.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="820.0" styleClass="pane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.csc311_week07.PrimaryController">
    <children>
-      <BorderPane layoutX="-2.0" layoutY="-1.0" prefHeight="535.0" prefWidth="807.0">
+      <BorderPane layoutX="-2.0" layoutY="-1.0" prefHeight="535.0" prefWidth="820.0">
          <top>
-            <MenuBar BorderPane.alignment="CENTER">
+            <MenuBar styleClass="menubar" BorderPane.alignment="CENTER">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -41,7 +41,7 @@
                 </Menu>
                   <Menu mnemonicParsing="false" text="Visual">
                     <items>
-                        <CheckMenuItem mnemonicParsing="false" text="Dark Mode" />
+                        <MenuItem fx:id="themeMenuItem" mnemonicParsing="false" onAction="#toggleTheme" text="Dark Mode" />
                         <CheckMenuItem mnemonicParsing="false" onAction="#shortcuts" text="Shortcuts" />
                     </items>
                   </Menu>
@@ -54,14 +54,14 @@
             </MenuBar>
          </top>
          <right>
-            <TableView fx:id="tv" prefHeight="501.0" prefWidth="507.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tv" prefHeight="501.0" prefWidth="507.0" styleClass="tableview" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="tv_id" editable="false" prefWidth="32.0" text="ID" />
-                <TableColumn fx:id="tv_name" editable="false" prefWidth="87.0" text="Name" />
-                  <TableColumn fx:id="tv_email" editable="false" prefWidth="83.0" text="Email" />
-                  <TableColumn fx:id="tv_phone" editable="false" prefWidth="107.0" text="Phone" />
-                  <TableColumn fx:id="tv_address" editable="false" minWidth="0.0" prefWidth="90.0" text="Address" />
-                  <TableColumn fx:id="tv_password" editable="false" prefWidth="107.0" text="Password" />
+                <TableColumn fx:id="tv_id" editable="false" prefWidth="32.0" styleClass="tablecol1" text="ID" />
+                <TableColumn fx:id="tv_name" editable="false" prefWidth="87.0" styleClass="tablecol2" text="Name" />
+                  <TableColumn fx:id="tv_email" editable="false" prefWidth="83.0" styleClass="tablecol1" text="Email" />
+                  <TableColumn fx:id="tv_phone" editable="false" prefWidth="107.0" styleClass="tablecol2" text="Phone" />
+                  <TableColumn fx:id="tv_address" editable="false" minWidth="0.0" prefWidth="90.0" styleClass="tablecol1" text="Address" />
+                  <TableColumn fx:id="tv_password" editable="false" prefWidth="107.0" styleClass="tablecol2" text="Password" />
               </columns>
             </TableView>
          </right>
@@ -81,27 +81,27 @@
          <center>
             <VBox prefHeight="476.0" prefWidth="233.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="nameField" promptText="Name">
+                  <TextField fx:id="nameField" promptText="Name" styleClass="textfield">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="emailField" promptText="Email">
+                  <TextField fx:id="emailField" promptText="Email" styleClass="textfield">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="phoneField" promptText="Phone">
+                  <TextField fx:id="phoneField" promptText="Phone" styleClass="textfield">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="addressField" promptText="Address">
+                  <TextField fx:id="addressField" promptText="Address" styleClass="textfield">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="passwordField" promptText="Password">
+                  <TextField fx:id="passwordField" promptText="Password" styleClass="textfield">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
                      </VBox.margin>
@@ -138,7 +138,7 @@
          <bottom>
             <HBox prefHeight="32.0" prefWidth="693.0" styleClass="bottom_pane" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="message" editable="false" prefHeight="26.0" prefWidth="855.0" promptText="Messages will appear here.">
+                  <TextField fx:id="message" editable="false" prefHeight="26.0" prefWidth="855.0" promptText="Messages will appear here." styleClass="textfield">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>

@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.lang.reflect.Array;
 
 import static org.example.csc311_week07.App.cdbop;
+import static org.example.csc311_week07.App.scene;
 
 public class PrimaryController {
 
@@ -38,6 +39,9 @@ public class PrimaryController {
     MenuItem editMenu;
     @FXML
     MenuItem deleteMenu;
+    @FXML
+    MenuItem themeMenuItem;
+    boolean darkMode = false;
 
     @FXML
     TableView<User> tv;
@@ -301,6 +305,19 @@ public class PrimaryController {
                 buttons[i].setText(ogLabels[i]);
             }
             showShortcuts = false;
+        }
+    }
+
+    @FXML
+    private void toggleTheme() {
+        if (!darkMode) {
+            scene.getStylesheets().add(getClass().getResource("darkmode.css").toExternalForm());
+            darkMode = true;
+            themeMenuItem.setText("Light Mode");
+        } else {
+            scene.getStylesheets().clear();
+            darkMode = false;
+            themeMenuItem.setText("Dark Mode");
         }
     }
     /*@FXML
