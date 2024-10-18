@@ -5,8 +5,9 @@ import javafx.fxml.FXML;
 
 public class SecondaryController {
 
+    //Moves to main interface when login or register button is pressed.
     @FXML
     private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
+        App.setRoot("db_interface_gui");
     }
 }

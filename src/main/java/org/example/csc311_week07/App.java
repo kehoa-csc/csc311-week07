@@ -18,22 +18,22 @@ public class App extends Application {
     public static Scene scene;
     public static ConnDbOps cdbop;
 
+    //3 methods involving starting the gui application
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("db_interface_gui"), 820, 535);
+        scene = new Scene(loadFXML("splash_screen"), 820, 535);
         stage.setScene(scene);
         stage.show();
     }
-
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
-
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
 
         return fxmlLoader.load();
     }
+
 
     public static void main(String[] args) {
         cdbop = new ConnDbOps();
@@ -43,6 +43,7 @@ public class App extends Application {
         int editID;
         int deleteID;
         char input;
+        //Offer menu choices
         do {
             System.out.println(" ");
             System.out.println("=============== Menu ===============");
